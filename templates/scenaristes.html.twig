@@ -1,0 +1,28 @@
+{% extends "layout.html.twig" %}
+
+{% block body %}
+    <h1>Consulter la liste des scénaristes</h1>
+
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+        </tr>
+        {% for scenariste in scenaristes %}
+            <tr>
+                <td>{{ scenariste.getNomScenariste() }}</td>
+                <td>{{ scenariste.getPrenomScenariste() }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br />
+    <a href="../index.php">Retour</a>
+
+
+{% endblock %}
+

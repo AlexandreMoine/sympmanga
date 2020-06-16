@@ -1,0 +1,31 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+index:
+    path: /
+    controller: App\Controller\MangaController::index
+
+mangas:
+    path: /mangas
+    controller: App\Controller\MangaController::getMangas
+
+dessinateurs:
+    path: /dessinateurs
+    controller: App\Controller\DessinateurController::getDessinateurs
+
+genres:
+    path: /genres
+    controller: App\Controller\GenreController::getGenres
+
+scenaristes:
+    path: /scenaristes
+    controller: App\Controller\ScenaristeController::getScenaristes
+
+addgenre:
+    path: /addgenre
+    controller: App\Controller\GenreController::addGenre
+
+admin:
+    path: /admin
+    controller: App\Controller\AdminController::getBO

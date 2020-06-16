@@ -1,0 +1,40 @@
+{% extends "layout.html.twig" %}
+
+{% block body %}
+    <h1>Consulter la liste des mangas</h1>
+
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Scenariste</th>
+            <th>Dessinateur</th>
+            <th>Titre</th>
+            <th>Genre</th>
+            <th>Prix</th>
+            <th>Couverture</th>
+        </tr>
+        {% for manga in mangas %}
+            <tr>
+                <td>{{ manga.getScenariste().getNomScenariste() }}</td>
+                <td>{{ manga.getDessinateur().getNomDessinateur() }}</td>
+                <td>{{ manga.getTitre() }}</td>
+                <td>{{ manga.getGenre().getLibGenre() }}</td>
+                <td>{{ manga.getPrix() }} €</td>
+                <td>{{ manga.getCouverture() }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br />
+    <a href="../index.php">Retour</a>
+
+
+{% endblock %}
+

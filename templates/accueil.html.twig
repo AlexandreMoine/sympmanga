@@ -1,0 +1,15 @@
+{% extends "layout.html.twig" %}
+
+{% block body %}
+    <h1>Bienvenue sur le site Manga</h1>
+
+    <p>Cliquez sur un des liens ci-dessous : </p>
+    <ul>
+        <li><a href="{{ url('mangas') }}">Liste des mangas</a></li>
+        <li><a href="{{ url('dessinateurs') }}">Liste des dessinateurs</a></li>
+        <li><a href="{{ url('scenaristes') }}">Liste des scénaristes</a></li>
+        <li><a href="{{ url('genres') }}">Liste des genres</a></li>
+    </ul>
+
+{% endblock %}
+

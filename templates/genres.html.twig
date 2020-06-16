@@ -1,0 +1,25 @@
+{% extends "layout.html.twig" %}
+
+{% block body %}
+    <h1>Consulter la liste des genres</h1>
+
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Libellé</th>
+        </tr>
+        {% for genre in genres %}
+            <tr>
+                <td>{{ genre.getLibGenre }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td></td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br />
+    <a href="../index.php">Retour</a>
+
+
+{% endblock %}
+

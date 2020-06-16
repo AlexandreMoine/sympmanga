@@ -1,0 +1,188 @@
+{% extends "layout.html.twig" %}
+{% set adminMenu = true %}
+{% block title %}Administration{% endblock %}
+{% block body %}
+    <h2 class="text-center">{{ block('title') }}</h2>
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active"><a href="#mangas" data-toggle="tab">Mangas</a></li>
+                <li><a href="#scenaristes" data-toggle="tab">Scenaristes</a></li>
+                <li><a href="#dessinateurs" data-toggle="tab">Dessinateurs</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane fade in active adminTable" id="mangas">
+            {% if mangas %}
+                <div class="table-responsive">
+                    <table class="table table-hover table-condensed">
+                        <thead>
+                        <tr>
+                            <th>Titre</th>
+                            <th>Scenariste</th>
+                            <th>Dessinateur</th>
+                            <th>Genre</th>
+                            <th>Prix</th>
+                            <th>Couverture</th>
+                            <th></th> <!-- Actions column -->
+                        </tr>
+                        </thead>
+                        {% for manga in mangas %}
+                            <tr>
+                                <!-- <td><a class="" href="/manga/{{ manga.getId() }}">{{ manga.getTitre() }}</a></td> -->
+                                <td>{{ manga.getTitre() }}</td>
+                                <td>{{ manga.getScenariste().getNomScenariste() }}</td>
+                                <td>{{ manga.getDessinateur().getNomDessinateur() }}</td>
+                                <td>{{ manga.getGenre().getLibGenre() }}</td>
+                                <td>{{ manga.getPrix() }}</td>
+                                <td>{{ manga.getCouverture() }}</td>
+
+                                <td>
+                                    <a href="/admin/conference/	{{ manga.getId() }}/edit" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+                                    <button type="button" class="btn btn-danger btn-xs"
+                                            title="Delete" data-toggle="modal" data-target="#
+											conferenceDialog{{ manga.getId() }}"><span class="glyphicon
+											glyphicon-remove"></span>
+                                    </button>
+                                    <div class="modal fade" id="conferenceDialog{{ manga.getId() }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close"
+                                                            data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title"
+                                                        id="myModalLabel">Confirmation needed</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Do you really want to delete this manga ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btndefault"data-dismiss="modal">Cancel</button>
+                                                    <a href="/admin/conference/{{ manga.getId() }}/delete" class="btn btn-danger">Confirm</a>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal-dialog -->
+                                    </div><!-- /.modal -->
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-warning">No mangas found.</div>
+            {% endif %}
+            <a href="/admin/conference/add"><button type="button" class="btn btnprimary"><span class="glyphicon glyphicon-plus"></span> Add
+                    manga</button></a>
+        </div>
+        <div class="tab-pane fade adminTable" id="scenaristes">
+            {% if scenaristes %}
+                <div class="table-responsive">
+                    <table class="table table-hover table-condensed">
+                        <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th></th> <!-- Actions column -->
+                        </tr>
+                        </thead>
+                        {% for scenariste in scenaristes %}
+                            <tr>
+                                <td>{{ scenariste.getNomScenariste() }}</td>
+                                <td>{{ scenariste.getPrenomScenariste() }}</td>
+
+                                <td>
+                                    <a href="/admin/scenariste/	{{ scenariste.getId() }}/edit" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+                                    <button type="button" class="btn btn-danger btn-xs"
+                                            title="Delete" data-toggle="modal" data-target="#
+											conferenceDialog{{ scenariste.getId() }}"><span class="glyphicon
+											glyphicon-remove"></span>
+                                    </button>
+                                    <div class="modal fade" id="conferenceDialog{{ scenariste.getId() }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close"
+                                                            data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title"
+                                                        id="myModalLabel">Confirmation needed</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Do you really want to delete this scenariste ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btndefault"data-dismiss="modal">Cancel</button>
+                                                    <a href="/admin/conference/{{ scenariste.getId() }}/delete" class="btn btn-danger">Confirm</a>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal-dialog -->
+                                    </div><!-- /.modal -->
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-warning">No scenaristes found.</div>
+            {% endif %}
+            <a href="/admin/conference/add"><button type="button" class="btn btnprimary"><span class="glyphicon glyphicon-plus"></span> Add Scenariste </button></a>
+        </div>
+        <div class="tab-pane fade adminTable" id="dessinateurs">
+            {% if dessinateurs %}
+                <div class="table-responsive">
+                    <table class="table table-hover table-condensed">
+                        <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th></th> <!-- Actions column -->
+                        </tr>
+                        </thead>
+                        {% for dessinateur in dessinateurs %}
+                            <tr>
+                                <td>{{ dessinateur.getNomDessinateur() }}</td>
+                                <td>{{ dessinateur.getPrenomDessinateur() }}</td>
+
+                                <td>
+                                    <a href="/admin/scenariste/	{{ dessinateur.getId() }}/edit" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+                                    <button type="button" class="btn btn-danger btn-xs"
+                                            title="Delete" data-toggle="modal" data-target="#
+											conferenceDialog{{ dessinateur.getId() }}"><span class="glyphicon
+											glyphicon-remove"></span>
+                                    </button>
+                                    <div class="modal fade" id="conferenceDialog{{ dessinateur.getId() }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close"
+                                                            data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title"
+                                                        id="myModalLabel">Confirmation needed</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Do you really want to delete this dessinateur ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btndefault"data-dismiss="modal">Cancel</button>
+                                                    <a href="/admin/conference/{{ dessinateur.getId() }}/delete" class="btn btn-danger">Confirm</a>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal-dialog -->
+                                    </div><!-- /.modal -->
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-warning">No dessinateurs found.</div>
+            {% endif %}
+            <a href="/admin/conference/add"><button type="button" class="btn btnprimary"><span class="glyphicon glyphicon-plus"></span> Add Dessinateur </button></a>
+        </div>
+    </div>
+{% endblock %}
